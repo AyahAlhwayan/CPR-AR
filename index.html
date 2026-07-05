@@ -261,6 +261,15 @@
    </a-scene>
  
    <script>
+      // كود لمنع التكبير (Zoom) عند النقر المزدوج على الشاشة (خاصة لأجهزة أندرويد)
+      document.addEventListener('dblclick', function(event) {
+        event.preventDefault();
+      }, { passive: false });
+
+      document.addEventListener('gesturestart', function(e) {
+        e.preventDefault();
+      });
+
       let currentStep = 1;
       let count = 0;
       let timer = null;
