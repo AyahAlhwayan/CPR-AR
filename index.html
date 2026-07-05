@@ -9,11 +9,13 @@
     
    <style>
       :root {
-       --primary-gradient: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+       /* ألوان فرايحية ومبهجة للواجهة */
+       --primary-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); 
        --accent: #00f2fe;
        --emergency-red: #ff4b2b;
        --success-green: #00ff88;
-        --glass: rgba(255, 255, 255, 0.1);
+       /* بطاقة بيضاء نظيفة وراكزة */
+       --glass: rgba(255, 255, 255, 0.95); 
       }
  
       body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #000; overflow: hidden; }
@@ -36,14 +38,29 @@
        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
        background: var(--primary-gradient); z-index: 3000;
         display: flex; flex-direction: column; align-items: center; justify-content: center;
-        color: white; text-align: center; transition: 0.8s ease-in-out;
+        text-align: center; transition: 0.8s ease-in-out;
       }
  
      .glass-card {
        background: var(--glass); backdrop-filter: blur(20px);
-       border-radius: 35px; padding: 30px; width: 85%; max-width: 450px;
-        border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+       border-radius: 35px; padding: 35px 30px; width: 85%; max-width: 450px;
+        border: 1px solid rgba(255,255,255,0.8); 
+        box-shadow: 0 15px 35px rgba(0, 10, 30, 0.1);
        position: relative;
+       color: #2c3e50; /* لون خط غامق ومقروء */
+      }
+      
+      .glass-card h1 {
+        color: #1e3c72;
+        margin-bottom: 5px;
+        font-size: 1.8rem;
+      }
+
+      .glass-card p.subtitle {
+        color: #7f8c8d;
+        margin-top: 0;
+        font-weight: 500;
+        margin-bottom: 20px;
       }
  
       .uni-logo {
@@ -51,15 +68,23 @@
       }
  
      .how-to-use {
-       text-align: left; background: rgba(0,0,0,0.3); padding: 15px;
-       border-radius: 15px; margin: 20px 0; font-size: 0.9rem; line-height: 1.4;
+       text-align: left; background: #f4f7f6; padding: 20px;
+       border-radius: 20px; margin: 20px 0; font-size: 1rem; line-height: 1.6;
+       color: #34495e; border: 1px solid #e1e8ed;
       }
-     .how-to-use b { color: var(--accent); }
+     .how-to-use p { margin: 8px 0; }
+     .how-to-use b { color: #0072ff; }
  
       .btn-main {
-       background: #fff; color: #1e3c72; padding: 18px 50px; border: none;
+       background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+       color: #fff; padding: 18px 50px; border: none;
        border-radius: 50px; font-weight: bold; font-size: 1.2rem; cursor: pointer;
        transition: 0.3s;
+       box-shadow: 0 10px 20px rgba(255, 75, 43, 0.3);
+      }
+      .btn-main:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 25px rgba(255, 75, 43, 0.4);
       }
  
       #ar-ui {
@@ -127,12 +152,12 @@
       <div class="glass-card">
         <img src="HSA.png" class="uni-logo" alt="Logo">
        <h1>CPR AR MISSION</h1>
-       <p>Experimental Training Simulation (Voice & Feedback)</p>
+       <p class="subtitle">Interactive Training</p>
         
         <div class="how-to-use">
-         <p><b>1. Audio:</b> Turn up your volume for voice guidance.</p>
-         <p><b>2. Marker:</b> Aim camera at the <b>HIRO</b> marker.</p>
-         <p><b>3. Compressions:</b> Match your pace with the <b>Beeps</b> and <b>Hand</b> animation.</p>
+         <p>🔊 <b>Audio:</b> Turn up volume.</p>
+         <p>📷 <b>Marker:</b> Aim at <b>HIRO</b>.</p>
+         <p>🫀 <b>Pacing:</b> Tap to compress. Stay <b>Green</b>!</p>
        </div>
  
        <button class="btn-main" onclick="initExperience()">START SESSION</button>
@@ -141,8 +166,8 @@
  
     <div id="finish-page" class="overlay-page">
       <div class="glass-card">
-        <h1 style="color: var(--success-green);">MISSION COMPLETE</h1>
-       <p>You have mastered the CPR cycle effectively.</p>
+        <h1 style="color: #27ae60;">MISSION COMPLETE</h1>
+       <p style="margin-bottom: 30px;">You have mastered the CPR cycle effectively.</p>
        <button class="btn-main" onclick="location.reload()">RESTART</button>
      </div>
     </div>
