@@ -7,6 +7,22 @@
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
     
+    <script>
+      AFRAME.registerComponent('persistent-marker', {
+        init: function () {
+          this.markerFound = false;
+          this.el.addEventListener('markerFound', () => {
+            this.markerFound = true;
+          });
+        },
+        tick: function () {
+          if (this.markerFound) {
+            this.el.object3D.visible = true;
+          }
+        }
+      });
+    </script>
+
    <style>
       :root {
        --primary-gradient: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
@@ -168,7 +184,7 @@
         <img id="cpr-hands" src="hands.png">
      </a-assets>
  
-     <a-marker preset="hiro">
+     <a-marker preset="hiro" persistent-marker>
         
        <a-entity id="group1">
          <a-cone color="#00ff88" radius-bottom="0.2" height="0.6" position="-2.0 1.5 0" rotation="180 0 0" animation="property: position; to: -2.0 1.7 0; dir: alternate; dur: 800; loop: true"></a-cone>
