@@ -9,12 +9,10 @@
     
    <style>
       :root {
-       /* ألوان فرايحية ومبهجة للواجهة */
        --primary-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); 
        --accent: #00f2fe;
        --emergency-red: #ff4b2b;
        --success-green: #00ff88;
-       /* بطاقة بيضاء نظيفة وراكزة */
        --glass: rgba(255, 255, 255, 0.95); 
       }
  
@@ -49,7 +47,7 @@
         border: 1px solid rgba(255,255,255,0.8); 
         box-shadow: 0 15px 35px rgba(0, 10, 30, 0.1);
        position: relative;
-       color: #2c3e50; /* لون خط غامق ومقروء */
+       color: #2c3e50; 
       }
       
       .glass-card h1 {
@@ -119,13 +117,21 @@
       .btn-next {
         flex: 3; padding: 20px; border-radius: 50px; border: none;
         color: white; font-weight: bold; background: var(--emergency-red);
-       font-size: 1.2rem; cursor: pointer;
+       font-size: 1.2rem; cursor: pointer; transition: 0.3s;
       }
  
      #start-cpr-btn {
        background: var(--success-green); color: #000; display: none;
        flex: 3; padding: 20px; border-radius: 50px; border: none;
-       font-weight: bold; font-size: 1.2rem; cursor: pointer;
+       font-weight: bold; font-size: 1.2rem; cursor: pointer; transition: 0.3s;
+      }
+
+      .btn-next:disabled, #start-cpr-btn:disabled {
+        background: #7f8c8d !important;
+        color: #bdc3c7 !important;
+        cursor: not-allowed;
+        box-shadow: none;
+        transform: none;
       }
  
       .btn-reset {
@@ -195,7 +201,7 @@
         <img id="cpr-hands" src="hands.png">
      </a-assets>
  
-     <a-marker preset="hiro">
+     <a-marker preset="hiro" smooth="true" smoothCount="10" smoothTolerance="0.02" smoothThreshold="5">
         
        <a-entity id="group1">
          <a-cone color="#00ff88" radius-bottom="0.2" height="0.6" position="-2.0 1.5 0" rotation="180 0 0" animation="property: position; to: -2.0 1.7 0; dir: alternate; dur: 800; loop: true"></a-cone>
@@ -322,6 +328,25 @@
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'en-US';
         utterance.rate = 1.0;
+        
+        const nextBtn = document.getElementById('next-btn-text');
+        const startCprBtn = document.getElementById('start-cpr-btn');
+        
+        utterance.onstart = () => {
+          nextBtn.disabled = true;
+          startCprBtn.disabled = true;
+        };
+
+        utterance.onend = () => {
+          nextBtn.disabled = false;
+          startCprBtn.disabled = false;
+        };
+
+        utterance.onerror = () => {
+          nextBtn.disabled = false;
+          startCprBtn.disabled = false;
+        };
+
         synth.speak(utterance);
       }
  
